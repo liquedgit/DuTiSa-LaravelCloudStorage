@@ -24,6 +24,9 @@ Route::get('/register',function(){
     return view('auth.register');
 });
 
+Route::get('/menu',function(){
+    return view('menu');
+});
 
 
 

@@ -30,8 +30,8 @@
                         @enderror
                         </div>
                         <div class="form-group">
-                        <label for="password1">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password1" placeholder="Password" name="password" required>
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" name="password" required>
                         @error('password')
                             <div class="invalid-feedback">
                                 <p>Wrong password Format</p>
