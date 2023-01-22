@@ -18,9 +18,17 @@ class AuthController extends Controller
         $check = Auth::attempt($credentials);
         if($check){
             $request->session()->regenerate();
-            return redirect()->intended('menu');
+            return redirect()->intended('dashboard');
         }
 
         return back()->withErrors(["status" => "Login Failed !"]);
     }
+
+    public function logout(Request $request){
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        Auth::logout();
+        return redirect('/');
+    }
+
 }

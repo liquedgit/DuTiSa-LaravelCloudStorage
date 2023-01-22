@@ -1,0 +1,10 @@
+$(document).ready(()=>{  
+    $('#viewbut').click(()=>{
+        $('.container').toggle(150);
+        $('.main').toggle(150);
+    })
+    $('.backbtn').click(()=>{
+        $('.container').toggle(150);
+        $('.main').toggle(150);
+    })
+})

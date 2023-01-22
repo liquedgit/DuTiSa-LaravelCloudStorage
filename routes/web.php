@@ -18,10 +18,12 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login')->middleware('guest');
 
+Route::post('/logout', [AuthController::class, 'logout']);
+
 Route::post('/login', [AuthController::class, 'auth']);
 
-Route::get('/menu',function(){
-    return view('menu');
+Route::get('/dashboard',function(){
+    return view('homepage');
 })->middleware('auth');
 
 
