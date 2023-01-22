@@ -16,17 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('auth.login');
-})->name('login');
+})->name('login')->middleware('guest');
 
 Route::post('/login', [AuthController::class, 'auth']);
 
-Route::get('/register',function(){
-    return view('auth.register');
-});
-
 Route::get('/menu',function(){
     return view('menu');
-});
+})->middleware('auth');
 
 
 
