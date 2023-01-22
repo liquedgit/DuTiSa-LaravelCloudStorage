@@ -9,17 +9,18 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function auth(Request $request){
+        // dd($request);
+        $credentials = $request->validate([
+            'TraineeCode' => 'required',
+            'password' => 'required'
+        ]);
 
-        $credentials = [
-            'traineecode' => ['required'],
-            'password' => ['required']
-        ];
-
-        if(Auth::attempt($credentials)){
+        $check = Auth::attempt($credentials);
+        if($check){
             $request->session()->regenerate();
-            return redirect()->intended('myfiles');
+            return redirect()->intended('menu');
         }
 
-        return back()->withErrors(['status'=>'Login Failed !']);
+        return back()->withErrors(["status" => "Login Failed !"]);
     }
 }

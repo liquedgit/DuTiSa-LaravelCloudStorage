@@ -13,15 +13,30 @@
                 <div class="card-body">
                     <h1 class ="card-title text-center">D  U  T  I  S  A</h1>
                 </div>
-                    <form method="post" action="/login">
+                    @error('status')
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <form method="POST" action="/login">
                         @csrf
                         <div class="form-group">
-                        <label for="exampleInputEmail1">TXXX</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="TXXX" name="txxx">
+                        <label for="TraineeCode">TXXX</label>
+                        <input type="text" class="form-control @error('TraineeCode') is-invalid @enderror" id="TraineeCode" placeholder="TXXX" name="TraineeCode" required autofocus>
+                        @error('TraineeCode')
+                                <div class="invalid-feedback">
+                                    <p>Wrong TXXX Format</p>
+                                </div>
+                        @enderror
                         </div>
                         <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pass">
+                        <label for="password1">Password</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password1" placeholder="Password" name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">
+                                <p>Wrong password Format</p>
+                            </div>
+                        @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
