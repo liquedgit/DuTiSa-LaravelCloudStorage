@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +19,18 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login')->middleware('guest');
 
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::post('/login', [AuthController::class, 'auth']);
 
-Route::get('/dashboard',function(){
-    return view('homepage');
-})->middleware('auth');
+Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
+
+// Route::get('/dashboard',function(){
+//     return view('homepage');
+// })->middleware('auth');
+
+Route::post('/upload', [FileController::class, 'insert']);
+Route::get('/menu', [AuthController::class, 'menu']);
 
 
 
