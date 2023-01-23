@@ -32,6 +32,10 @@ Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
 Route::post('/upload', [FileController::class, 'insert']);
 Route::get('/menu', [AuthController::class, 'menu']);
 
+Route::post('/delete/{id}', [FileController::class, 'delete']);
+Route::post('/download/{id}', [FileController::class, 'download']);
+
+
 
 
 

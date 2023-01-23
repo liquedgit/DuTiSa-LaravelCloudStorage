@@ -36,25 +36,21 @@
         <tbody>
             @foreach ($files as $file)
                 <tr>
-                <td>{{substr($file->name,6)}}</td>
+                <td style="width: 1000px">{{$file->name}}</td>
                 <td>
-                    <a href="#"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
+                    <form action="/download/{{$file->id}}" method="post" id="downloadform">
+                        @csrf
+                            <a href="javascript:$('#downloadform').submit();" type="submit"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
+                    </form>
                 </td>
                 <td>
-                    <a href="#"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
+                    <form action="/delete/{{$file->id}}" method="post" id="delform">
+                        @csrf
+                        <a href="javascript:$('#delform').submit();" type="submit"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
+                    </form>
                 </td>
                 </tr>
             @endforeach
-          {{-- <tr>
-            <th scope="row">2</th>
-            <td>Mark</td>
-            <td>
-                <a href="#"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
-            </td>
-            <td>
-                <a href="#"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
-            </td>
-          </tr> --}}
         </tbody>
       </table>
       {{ $files->links() }}
@@ -67,9 +63,9 @@
                     <label for="formFile" id="choosefilelbl">
                         Choose File
                     </label>
-                    <input class="form-control" type="file" id="formFile" hidden name="file" >
+                    <input class="form-control" type="file" id="formFile" hidden name="file[]" multiple>
                 </div>
-                <button type="submit" id="btn">
+                <button type="submit" id="btn" value="Upload">
                 </button>
             </form>
         </div>
