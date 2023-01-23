@@ -38,15 +38,18 @@
                 <tr>
                 <td style="width: 1000px">{{$file->name}}</td>
                 <td>
-                    <form action="/download/{{$file->id}}" method="post" id="downloadform">
+                    <form action="/download/{{$file->id}}" method="post" id="downloadform{{$file->id}}">
                         @csrf
-                            <a href="javascript:$('#downloadform').submit();" type="submit"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
+                        {{-- <button type="submit"> --}}
+                            <a href="javascript:$('#downloadform{{$file->id}}').submit();" type="submit"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
+                            {{-- <a href="#" type="submit"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a> --}}
+                        {{-- </button> --}}
                     </form>
                 </td>
                 <td>
-                    <form action="/delete/{{$file->id}}" method="post" id="delform">
+                    <form action="/delete/{{$file->id}}" method="post" id="delform{{$file->id}}">
                         @csrf
-                        <a href="javascript:$('#delform').submit();" type="submit"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
+                        <a href="javascript:$('#delform{{$file->id}}').submit();" type="submit"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
                     </form>
                 </td>
                 </tr>

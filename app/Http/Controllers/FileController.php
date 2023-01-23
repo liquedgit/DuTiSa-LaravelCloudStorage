@@ -72,6 +72,7 @@ class FileController extends Controller
             return redirect('/logout');
         }
         Session::put('time', time());
+
         $file = File::find($id);
         return Storage::download('public/files/'.$file->name);
     }
