@@ -12,33 +12,66 @@
 </head>
 <body>
 
-    <div class="d-flex flex-row">
-        <h1>DuTiSa</h1>
-        <form method="POST" action="/logout">
-            @csrf
-            <input type="submit" value="Logout">
-        </form>
+    <div class="d-flex flex-row" id="navbar">
+        <h1>DuTiSa 23-1</h1>
+        @auth
+            <form method="get" action="/logout">
+                <button type="submit" class="btn" id="logout">Log Out</button>
+            </form>
+        @else
+            <form method="get" action="/">
+                <button type="submit" class="btn" id="login">Log In</button>
+            </form>
+        @endauth
     </div>
-
-    <div class="uploadbox">
-        {{-- Buat Uploadnya --}}
-    </div>
-    <div class="container">
-        <div id="viewbox">
-            <h1 class="text-light" >{{ auth()->user()->TraineeCode }} Files</h1>
-            <hr class="border">
-
-            <button class="backbtn"> Back</button>
-        </div>
-    </div>
-    <div class="card-body">
-        <h1 class ="card-title text-center" id="title">D  U  T  I  S  A</h1>
-    </div>
+    <table class="table caption-top" id="table">
+        {{-- <caption>List of users</caption> --}}
+        <thead>
+          <tr>
+            <th scope="col">File Name</th>
+            <th scope="col">Download</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach ($files as $file)
+                <tr>
+                <td>{{substr($file->name,6)}}</td>
+                <td>
+                    <a href="#"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
+                </td>
+                <td>
+                    <a href="#"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
+                </td>
+                </tr>
+            @endforeach
+          {{-- <tr>
+            <th scope="row">2</th>
+            <td>Mark</td>
+            <td>
+                <a href="#"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
+            </td>
+            <td>
+                <a href="#"><img src="{{asset('/assets/delete.png')}}" alt="" class="icon" id="delete"></a>
+            </td>
+          </tr> --}}
+        </tbody>
+      </table>
+      {{ $files->links() }}
     <div class="main">
         <hr class=" border">
         <div class="d-flex justify-content-around">
-            <div id="box"><button type="button" class="btn btn-primary btn-lg border"><img class="uploadimg" src="{{ asset('assets/upload.png') }}"></button></div>
-            <div id="box"><button type="button" id="viewbut" class="btn btn-primary btn-lg border"><img class="viewimg" src="{{ asset('/assets/view.png') }}"></button></div>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                @csrf
+                <div id="box">
+                    <label for="formFile" id="choosefilelbl">
+                        Choose File
+                    </label>
+                    <input class="form-control" type="file" id="formFile" hidden name="file" >
+                </div>
+                <button type="submit" id="btn">
+                </button>
+            </form>
         </div>
     </div>
 </body>

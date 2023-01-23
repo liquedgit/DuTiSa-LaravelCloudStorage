@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -17,7 +17,8 @@ class AuthController extends Controller
 
         $check = Auth::attempt($credentials);
         if($check){
-            $request->session()->regenerate();
+            Session::put('time', time());
+            // $request->session()->regenerate();
             return redirect()->intended('dashboard');
         }
 
@@ -25,10 +26,30 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        $request->session()->invalidate();
-        $request->session()->regenerate();
+        Session::flush();
+        // $request->session()->invalidate();
+        // $request->session()->regenerate();
         Auth::logout();
         return redirect('/');
+    }
+
+    public function upload(){
+        $curr = time();
+        $last = Session::get('time');
+        if($curr - $last > 600){
+            return redirect('/logout');
+        }
+        Session::put('time', time());
+        return redirect('/');
+    }
+    public function menu(){
+        $curr = time();
+        $last = Session::get('time');
+        if($curr - $last > 10){
+            return redirect('/logout');
+        }
+        Session::put('time', time());
+        return redirect()->back();
     }
 
 }
