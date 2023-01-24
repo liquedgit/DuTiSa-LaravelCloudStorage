@@ -12,6 +12,27 @@
 </head>
 <body>
 
+    <div class="d-flex flex-row">
+        <h1 class="dt">DuTiSa</h1>
+        <form method="POST" action="/logout">
+            @csrf
+            <input class="logbtn" type="submit" value="Logout">
+        </form>
+    </div>
+
+    <div class="uploadbox">
+        {{-- Buat Uploadnya --}}
+    </div>
+    <div class="container">
+        <div id="viewbox">
+            <h1 class="text-light" >{{ auth()->user()->TraineeCode }} Files</h1>
+            <hr class="border">
+
+            <button class="backbtn"> Back</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <h1 class ="card-title text-center" id="title">D  U  T  I  S  A</h1>
     <div class="d-flex flex-row" id="navbar">
         <h1>DuTiSa 23-1</h1>
         @auth
