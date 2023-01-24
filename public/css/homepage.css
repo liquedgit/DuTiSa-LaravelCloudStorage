@@ -58,3 +58,22 @@ hr{
     bottom: 20px;
     right: 20px;
 }
+
+.dt{
+    color: lightskyblue;
+    margin-left: 10px;
+}
+
+.logbtn {
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+    background: transparent;
+    border-radius: 5px;
+    color: lightskyblue;
+    width: 150px;
+    height: 50px;
+    font-style: italic;
+    font-size: 30px;
+    border: none;
+}

@@ -13,10 +13,10 @@
 <body>
 
     <div class="d-flex flex-row">
-        <h1>DuTiSa</h1>
+        <h1 class="dt">DuTiSa</h1>
         <form method="POST" action="/logout">
             @csrf
-            <input type="submit" value="Logout">
+            <input class="logbtn" type="submit" value="Logout">
         </form>
     </div>
 
