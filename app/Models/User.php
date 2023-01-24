@@ -11,9 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function files(){
-        return $this->hasMany(File::class);
-    }
+
     /**
      * The attributes that are mass assignable.
      *

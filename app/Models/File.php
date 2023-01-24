@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
-    public function User(){
-        return $this->belongsTo(User::class);
-    }
+    protected $table = 'files';
+    protected $id = 'id';
+    protected $traineecode = 'traineecode';
+    protected $fillable = array('name', 'created_at', 'updated_at');
+
 }

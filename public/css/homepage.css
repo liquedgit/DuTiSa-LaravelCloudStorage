@@ -118,8 +118,13 @@ hr {
 }
 
 #btn {
-    width: 40px;
+    margin-left: 115px;
+    width: 100px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
+    color: black;
+    margin-top: 10px;
     background-color: #57CC99;
+    border-radius: 10px;
+    border: none;
 }
