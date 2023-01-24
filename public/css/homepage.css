@@ -50,6 +50,13 @@ hr {
     align-items: center;
     justify-content: center;
     border: 2px solid white;
+    transition: 0.2s;
+}
+
+#box:hover {
+    color: white;
+    background-color: black;
+    opacity: 0.2;
 }
 
 #box button {
