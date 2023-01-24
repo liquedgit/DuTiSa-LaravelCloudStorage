@@ -25,6 +25,7 @@
     </div>
     <div class="card-body">
         <h1 class ="card-title text-center" id="title" style="font-family: Verdana">D U T I S A</h1>
+    </div>
     <div class="d-flex flex-row" id="navbar">
         <h1 style="font-family: Verdana">DuTiSa 23-1</h1>
         @auth
@@ -37,6 +38,7 @@
             </form>
         @endauth
     </div>
+    <h2 style="margin-left: 3%;">Hello, {{get_current_user()}}</h2>
     <table class="table caption-top" id="table">
         {{-- <caption>List of users</caption> --}}
         <thead>
@@ -50,6 +52,7 @@
             @foreach ($files as $file)
                 <tr>
                 <td style="width: 1000px">{{$file->name}}</td>
+{{--                <td>{{$file->}}</td>--}}
                 <td>
                     <form action="/download/{{$file->id}}" method="post" id="downloadform{{$file->id}}">
                         @csrf
