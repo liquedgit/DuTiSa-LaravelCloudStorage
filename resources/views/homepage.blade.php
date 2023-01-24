@@ -12,14 +12,6 @@
 </head>
 <body>
 
-    <div class="d-flex flex-row">
-        <h1 class="dt">DuTiSa</h1>
-        <form method="POST" action="/logout">
-            @csrf
-            <input class="logbtn" type="submit" value="Logout">
-        </form>
-    </div>
-
     <div class="uploadbox">
         {{-- Buat Uploadnya --}}
     </div>
@@ -89,7 +81,7 @@
                     </label>
                     <input class="form-control" type="file" id="formFile" hidden name="file[]" multiple>
                 </div>
-                <button type="submit" id="btn" value="Upload">
+                <button type="submit" id="btn" value="Upload">UPLOAD
                 </button>
             </form>
         </div>
