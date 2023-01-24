@@ -91,12 +91,20 @@ hr {
 
 #navbar .btn:hover {
     background-color: #225675;
+    color: white;
 }
 
 #choosefilelbl {
     font-family: Poppins;
     font-style: italic;
     font-size: 40px;
+}
+
+#choosefilelbl:hover{
+
+    color: white;
+    font-size: 45px;
+    transition: 0.3s ease-in-out;
 }
 
 #table {
@@ -118,7 +126,7 @@ hr {
 }
 
 #btn {
-    margin-left: 115px;
+    margin: 140px;
     width: 100px;
     height: 40px;
     font-size: 20px;
@@ -127,4 +135,10 @@ hr {
     background-color: #57CC99;
     border-radius: 10px;
     border: none;
+}
+
+#btn:hover{
+    background-color: #225675;
+    color: white;
+    transition: 0.3s ease-in-out;
 }

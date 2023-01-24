@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function menu(){
         $curr = time();
         $last = Session::get('time');
-        if($curr - $last > 600){
+        if($curr - $last > 60){
             return redirect('/logout');
         }
         Session::put('time', time());
