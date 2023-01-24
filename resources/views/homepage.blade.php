@@ -13,10 +13,10 @@
 <body>
 
     <div class="d-flex flex-row">
-        <h1 class="dt">DuTiSa</h1>
+        <h1 class="dt" style="font-family: Brush Script MT">DuTiSa</h1>
         <form method="POST" action="/logout">
             @csrf
-            <input class="logbtn" type="submit" value="Logout">
+            <input style="font-family: Brush Script MT" class="logbtn" type="submit" value="Logout">
         </form>
     </div>
 
@@ -32,9 +32,9 @@
         </div>
     </div>
     <div class="card-body">
-        <h1 class ="card-title text-center" id="title">D  U  T  I  S  A</h1>
+        <h1 class ="card-title text-center" id="title" style="font-family: Verdana">D U T I S A</h1>
     <div class="d-flex flex-row" id="navbar">
-        <h1>DuTiSa 23-1</h1>
+        <h1 style="font-family: Verdana">DuTiSa 23-1</h1>
         @auth
             <form method="get" action="/logout">
                 <button type="submit" class="btn" id="logout">Log Out</button>
