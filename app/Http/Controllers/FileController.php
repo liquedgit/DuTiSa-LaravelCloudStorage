@@ -12,10 +12,22 @@ use Illuminate\Support\Facades\Validator;
 
 class FileController extends Controller
 {
+
+    public function logoutTime(){
+
+        $curr = time();
+        $last = Session::get('time');
+        if($curr - $last > 10){
+            return redirect('/logout');
+        }
+        Session::put('time', time());
+
+    }
+
     public function index(){
         $curr = time();
         $last = Session::get('time');
-        if($curr - $last > 600){
+        if($curr - $last > 10){
             return redirect('/logout');
         }
         Session::put('time', time());
@@ -26,10 +38,11 @@ class FileController extends Controller
     public function insert(Request $request){
         $curr = time();
         $last = Session::get('time');
-        if($curr - $last > 600){
+        if($curr - $last > 10){
             return redirect('/logout');
         }
         Session::put('time', time());
+
         $rules = [
             'file' => 'required'
         ];
@@ -52,10 +65,11 @@ class FileController extends Controller
     public function delete($id){
         $curr = time();
         $last = Session::get('time');
-        if($curr - $last > 600){
+        if($curr - $last > 10){
             return redirect('/logout');
         }
         Session::put('time', time());
+
         $file = File::find($id);
         if(isset($file)){
             // dd($file->name);
@@ -68,7 +82,7 @@ class FileController extends Controller
     public function download($id){
         $curr = time();
         $last = Session::get('time');
-        if($curr - $last > 600){
+        if($curr - $last > 10){
             return redirect('/logout');
         }
         Session::put('time', time());
