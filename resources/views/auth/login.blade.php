@@ -12,36 +12,47 @@
 <div class="global">
     <div>
         <div class="card-body">
-            <h1 class="card-title text-center">D U T I S A</h1>
+            <h1 class="card-title text-center mb-3">D U T I S A</h1>
         </div>
+
+
         @error('status')
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ $message }}
         </div>
         @enderror
         <form method="POST" action="/login">
-            @csrf
-            <div class="form-group">
-                <label for="TraineeCode">TXXX</label>
+            @csrfˆ
+
+            <div class="form-group mb-3">
+                <label for="TraineeCode">Trainee Number</label>
                 <input type="text" class="form-control @error('TraineeCode') is-invalid @enderror" id="TraineeCode"
                        placeholder="TXXX" name="TraineeCode" required autofocus>
+
                 @error('TraineeCode')
                 <div class="invalid-feedback">
                     <p>Wrong TXXX Format</p>
                 </div>
                 @enderror
             </div>
-            <div class="form-group">ˆ
+
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
                        placeholder="Password" name="password" required>
+
                 @error('password')
                 <div class="invalid-feedback">
                     <p>Wrong password Format</p>
                 </div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary m-3">Submit</button>
+            </div>
+
         </form>
     </div>
 </div>
