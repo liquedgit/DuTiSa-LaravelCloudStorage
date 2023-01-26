@@ -55,4 +55,22 @@ class FileController extends Controller
         $file = File::find($id);
         return Storage::download('public/files/'.$file->name);
     }
+
+    public function settings() {
+        return view('/settings');
+    }
+
+    public function updatePassword(Request $request){
+        if($request->new_password == $request->confirm_new_password) {
+            $update = DB::table('users')
+                ->where('TraineeCode', auth()->user()->TraineeCode)
+                ->update([
+                    'password' => bcrypt($request->new_password)
+                ]);
+            return redirect('/dashboard');
+        }
+        else {
+            return back()->withErrors(["confirm-new-password" => "not match!"]);
+        }
+    }
 }

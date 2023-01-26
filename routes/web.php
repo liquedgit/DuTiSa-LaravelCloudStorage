@@ -35,8 +35,7 @@ Route::get('/menu', [AuthController::class, 'menu']);
 Route::post('/delete/{id}', [FileController::class, 'delete']);
 Route::post('/download/{id}', [FileController::class, 'download']);
 
-
-
-
+Route::get('/settings', [FileController::class, 'settings']);
+Route::put('/settings', [FileController::class, 'updatePassword']);
 
 

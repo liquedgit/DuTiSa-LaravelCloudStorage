@@ -20,6 +20,10 @@
 
 <div class="d-flex flex-row" id="navbar">
     @auth
+        <form method="get" action="{{url('/settings')}}">
+            <button type="submit" class="btn" id="settings">Change Password</button>
+        </form>
+
         <form method="get" action="/logout">
             <button type="submit" class="btn" id="logout">Log Out</button>
         </form>
@@ -28,6 +32,7 @@
             <button type="submit" class="btn" id="login">Log In</button>
         </form>
     @endauth
+
 </div>
 
 
