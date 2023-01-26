@@ -3,11 +3,9 @@ const DEFAULT_TIMEOUT = 60000;
 let PREV_TIMER = Date.now();
 
 window.addEventListener('click', () => {
-    console.log("action");
     PREV_TIMER = Date.now();
 })
 window.addEventListener('keydown', () => {
-    console.log("action");
     PREV_TIMER = Date.now();
 })
 
