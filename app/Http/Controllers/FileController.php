@@ -13,23 +13,11 @@ use Illuminate\Support\Facades\Validator;
 class FileController extends Controller
 {
     public function index(){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
         $files = DB::table('files')->where('TraineeCode', 'like', Auth::user()->TraineeCode)->simplePaginate(4);
         return view('homepage', compact('files'));
     }
 
     public function insert(Request $request){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
         $rules = [
             'file' => 'required'
         ];
@@ -40,39 +28,30 @@ class FileController extends Controller
 
         foreach($request->file('file') as $file){
             $filename = $file->getClientOriginalName();
-            Storage::putFileAs('public/files', $file, $filename);
+
+            $fileDiscriminator = Time().$filename; // generate unique name
+            Storage::putFileAs('public/files', $file, $fileDiscriminator);
+
+            // Save file to db
             $file = new File();
             $file->TraineeCode = Auth::user()->TraineeCode;
             $file->name = $filename;
+            $file->discriminator = $fileDiscriminator;
             $file->save();
         }
         return redirect('/dashboard');
     }
 
     public function delete($id){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
         $file = File::find($id);
         if(isset($file)){
-            // dd($file->name);
-            Storage::delete('public/files/'.$file->name);
+            Storage::delete('public/files/'.$file->discriminator);
             $file->delete();
         }
         return redirect('/dashboard');
     }
 
     public function download($id){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
-
         $file = File::find($id);
         return Storage::download('public/files/'.$file->name);
     }
