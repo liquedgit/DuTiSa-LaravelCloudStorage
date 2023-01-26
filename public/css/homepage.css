@@ -44,8 +44,6 @@ hr {
 
 #box {
     display: flex;
-    height: 25vw;
-    width: 25vw;
     border-radius: 5%;
     align-items: center;
     justify-content: center;
@@ -80,17 +78,8 @@ hr {
     justify-content: space-between;
 }
 
-#navbar .btn {
-    margin-right: 10px;
-    background-color: #57CC99;
-    border-style: none;
-    border-radius: .5em;
-    padding-bottom: 2em;
-    height: 50%;
-}
-
 #navbar .btn:hover {
-    background-color: #225675;
+    background-color: red;
     color: white;
 }
 

@@ -18,11 +18,13 @@
     <h1 class="card-title text-center" id="title" style="font-family: Verdana;">D U T I S A</h1>
 </div>
 
+<h5 class="card-title mx-5" style="font-family: 'Lucida Sans'; text-align: right;">Hello, {{get_current_user()}}</h5>
 
-<div class="d-flex flex-row" id="navbar">
+
+<div class="d-flex flex-row m-4" id="navbar">
     @auth
         <form method="get" action="/logout">
-            <button type="submit" class="btn" id="logout">Log Out</button>
+            <button type="submit" class="btn btn-danger" id="logout" style="font-family: 'Lucida Sans'">Log Out</button>
         </form>
     @else
         <form method="get" action="/">
@@ -32,16 +34,14 @@
 </div>
 
 
-<h2 class="card-title text-center">Hello, {{get_current_user()}}</h2>
-
 
 <table class="table caption-top" id="table">
     {{-- <caption>List of users</caption> --}}
     <thead>
     <tr>
-        <th scope="col">File Name</th>
-        <th scope="col">Download</th>
-        <th scope="col">Delete</th>
+        <th scope="col" style="font-family: 'Lucida Sans'">| File Name</th>
+        <th scope="col" style="font-family: 'Lucida Sans'">| Download</th>
+        <th scope="col" style="font-family: 'Lucida Sans'">| Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -77,12 +77,12 @@
         <form action="/upload" method="post" enctype="multipart/form-data">
             @csrf
             <div id="box">
-                <label for="formFile" id="choosefilelbl">
+                <label for="formFile" id="choosefilelbl" style="font-family: 'Lucida Sans'">
                     Choose File
                 </label>
                 <input class="form-control" type="file" id="formFile" hidden name="file[]" multiple>
             </div>
-            <button type="submit" id="btn" value="Upload">UPLOAD
+            <button type="submit" id="btn" value="Upload" class="mt-5" style="font-family: 'Lucida Sans'">UPLOAD
             </button>
         </form>
     </div>
