@@ -22,7 +22,7 @@
         </div>
         @enderror
         <form method="POST" action="/login">
-            @csrfˆ
+            @csrf
 
             <div class="form-group mb-3">
                 <label for="TraineeCode">Trainee Number</label>
