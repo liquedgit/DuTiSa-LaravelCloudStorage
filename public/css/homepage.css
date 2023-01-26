@@ -48,13 +48,11 @@ hr {
     justify-content: center;
 }
 #box {
-    position: relative;
-    text-align: center;
-    height: 15vw;
-    width: 15vw;
+    display: flex;
     border-radius: 5%;
+    align-items: center;
+    justify-content: center;
     border: 2px solid white;
-    margin: 0 auto;
 }
 
 #box button {
@@ -85,17 +83,8 @@ hr {
     justify-content: space-between;
 }
 
-#navbar .btn {
-    margin-right: 10px;
-    background-color: #57CC99;
-    border-style: none;
-    border-radius: .5em;
-    padding-bottom: 2em;
-    height: 50%;
-}
-
 #navbar .btn:hover {
-    background-color: #225675;
+    background-color: red;
     color: white;
 }
 
@@ -109,6 +98,7 @@ hr {
 }
 
 #choosefilelbl:hover{
+
     color: white;
     font-size: 45px;
     transition: 0.3s ease-in-out;
