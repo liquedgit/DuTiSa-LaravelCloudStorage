@@ -29,6 +29,9 @@
     <div class="d-flex flex-row" id="navbar">
         <h1 style="font-family: Verdana">DuTiSa 23-1</h1>
         @auth
+            <form method="get" action="{{url('/settings')}}">
+                <button type="submit" class="btn" id="settings">Change Password</button>
+            </form>
             <form method="get" action="/logout">
                 <button type="submit" class="btn" id="logout">Log Out</button>
             </form>
@@ -77,6 +80,7 @@
         <hr class=" border">
         <div class="d-flex justify-content-around">
             <form action="/upload" method="post" enctype="multipart/form-data">
+                @csrf
                 @csrf
                 <div id="box">
                     <label for="formFile" id="choosefilelbl">
