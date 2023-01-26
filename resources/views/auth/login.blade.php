@@ -53,6 +53,10 @@
                 <button type="submit" class="btn btn-primary m-3">Submit</button>
             </div>
 
+            <div>
+                Don't have an account? <a href="{{url('/registerdirect')}}">Register</a> here!
+            </div>
+
         </form>
     </div>
 </div>
