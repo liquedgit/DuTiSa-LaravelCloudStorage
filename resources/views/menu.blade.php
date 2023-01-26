@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    Login berhasil
+Login berhasil
 </body>
 </html>
