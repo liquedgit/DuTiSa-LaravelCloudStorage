@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -26,8 +27,6 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request){
-        // $request->session()->invalidate();
-        // $request->session()->regenerate();
         Session::flush();
         Auth::logout();
         return redirect('/');
@@ -40,6 +39,34 @@ class AuthController extends Controller
         }
         Session::put('time', time());
         return redirect()->back();
+    }
+
+    public function register(Request $request){
+
+        $data = $request->validate([
+            'TraineeCode' => 'required',
+            'name' => 'required',
+            'password' => 'required',
+            'ConfirmPassword' => 'required'
+        ]);
+
+
+        if($data['password'] != $data['ConfirmPassword']){
+            return back()->withErrors(["status" => "Password does not match"]);
+        }
+
+        if(DB::table('users')->where('TraineeCode', $data['TraineeCode'])->exists()){
+            return back()->withErrors(["status" => "Trainee number already exists"]);
+        }
+
+
+        DB::table('users')->insert([
+            'name' => $data['name'],
+            'TraineeCode' => $data['TraineeCode'],
+            'password' => bcrypt($data['password'])
+        ]);
+
+        return redirect('/logindirect');
     }
 
 }
