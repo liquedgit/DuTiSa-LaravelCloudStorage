@@ -77,7 +77,7 @@
     <div class="main">
         <hr class=" border">
         <div class="d-flex justify-content-around">
-            <form action="/upload" method="post" enctype="multipart/form-data">
+            <form action="/upload" method="post" enctype="multipart/form-data" id="file-form">
                 @csrf
                 <div id="box">
                     <label for="formFile" id="choosefilelbl">

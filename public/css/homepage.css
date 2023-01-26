@@ -42,14 +42,19 @@ hr {
     margin-bottom: 100px;
 }
 
-#box {
-    display: flex;
-    height: 25vw;
-    width: 25vw;
-    border-radius: 5%;
+#file-form {
+    display: block;
     align-items: center;
     justify-content: center;
+}
+#box {
+    position: relative;
+    text-align: center;
+    height: 15vw;
+    width: 15vw;
+    border-radius: 5%;
     border: 2px solid white;
+    margin: 0 auto;
 }
 
 #box button {
@@ -95,13 +100,15 @@ hr {
 }
 
 #choosefilelbl {
+    position: absolute;
     font-family: Poppins;
     font-style: italic;
     font-size: 40px;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #choosefilelbl:hover{
-
     color: white;
     font-size: 45px;
     transition: 0.3s ease-in-out;
