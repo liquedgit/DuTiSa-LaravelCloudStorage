@@ -14,22 +14,12 @@
 </head>
 <body>
 
-<div class="uploadbox">
-    {{-- Buat Uploadnya --}}
-</div>
-<div class="container">
-    <div id="viewbox">
-        <h1 class="text-light">{{ auth()->user()->TraineeCode }} Files</h1>
-        <hr class="border">
-
-        <button class="backbtn"> Back</button>
-    </div>
-</div>
 <div class="card-body">
-    <h1 class="card-title text-center" id="title" style="font-family: Verdana">D U T I S A</h1>
+    <h1 class="card-title text-center" id="title" style="font-family: Verdana;">D U T I S A</h1>
 </div>
+
+
 <div class="d-flex flex-row" id="navbar">
-    <h1 style="font-family: Verdana">DuTiSa 23-1</h1>
     @auth
         <form method="get" action="/logout">
             <button type="submit" class="btn" id="logout">Log Out</button>
@@ -40,7 +30,11 @@
         </form>
     @endauth
 </div>
-<h2 style="margin-left: 3%;">Hello, {{get_current_user()}}</h2>
+
+
+<h2 class="card-title text-center">Hello, {{get_current_user()}}</h2>
+
+
 <table class="table caption-top" id="table">
     {{-- <caption>List of users</caption> --}}
     <thead>
