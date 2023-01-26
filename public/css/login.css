@@ -27,10 +27,8 @@ body {
 
 input[type="email"],
 input[type="password"] {
-    color: white;
     border: 2px solid white;
     border-radius: 10px;
-    margin-bottom: 25px;
 }
 
 input[type="email"]:focus,
