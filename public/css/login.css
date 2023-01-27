@@ -25,13 +25,15 @@ body {
     border: 2px solid #225675;
 }
 
-input[type="email"],
+input[type="text"],
 input[type="password"] {
+
     border: 2px solid white;
-    border-radius: 10px;
+    border-radius: 20px;
+
 }
 
-input[type="email"]:focus,
+input[type="text"]:focus,
 input[type="password"]:focus {
     outline: none;
     border: none;
@@ -44,6 +46,7 @@ input[type="password"]:focus {
 }
 
 .btn {
+    margin-top: 20px;
     background: #225675;
     color: white !important;
     transform: translateY(10px);
