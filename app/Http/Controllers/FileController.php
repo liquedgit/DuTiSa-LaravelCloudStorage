@@ -53,6 +53,7 @@ class FileController extends Controller
 
     public function download($id){
         $file = File::find($id);
-        return Storage::download('public/files/'.$file->name);
+//        @dd($file->discriminator);
+        return Storage::download('public/files/'.$file->discriminator);
     }
 }

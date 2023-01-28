@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class AuthController extends Controller
 {
     public function auth(Request $request){
-        // dd($request);
+//         dd($request);
         $credentials = $request->validate([
             'TraineeCode' => 'required',
             'password' => 'required'
@@ -19,7 +19,12 @@ class AuthController extends Controller
         $check = Auth::attempt($credentials);
         if($check){
             Session::put('time', time());
-            // $request->session()->regenerate();
+
+            $nameGetter = DB::table('users')->where('TraineeCode', $request->TraineeCode)->get();
+
+            Session::put('name', $nameGetter[0]->name);
+
+
             return redirect()->intended('dashboard');
         }
 
@@ -58,7 +63,6 @@ class AuthController extends Controller
         if(DB::table('users')->where('TraineeCode', $data['TraineeCode'])->exists()){
             return back()->withErrors(["status" => "Trainee number already exists"]);
         }
-
 
         DB::table('users')->insert([
             'name' => $data['name'],

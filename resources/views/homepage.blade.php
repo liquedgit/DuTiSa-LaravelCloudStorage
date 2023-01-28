@@ -31,7 +31,7 @@
 </div>
 
 
-<h2 class="card-title text-center">Hello, {{get_current_user()}}</h2>
+<h2 class="card-title text-center">Hello, {{session()->get('name', ' ')}}</h2>
 
 
 <table class="table caption-top" id="table">
@@ -47,15 +47,11 @@
     @foreach ($files as $file)
         <tr>
             <td style="width: 1000px">{{$file->name}}</td>
-            {{--                <td>{{$file->}}</td>--}}
             <td>
                 <form action="/download/{{$file->id}}" method="post" id="downloadform{{$file->id}}">
                     @csrf
-                    {{-- <button type="submit"> --}}
                     <a href="javascript:$('#downloadform{{$file->id}}').submit();" type="submit"><img
                             src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a>
-                    {{-- <a href="#" type="submit"><img src="{{asset('/assets/download.png')}}" alt="" class="icon" id="download"></a> --}}
-                    {{-- </button> --}}
                 </form>
             </td>
             <td>
@@ -85,5 +81,6 @@
                 </button>
             </form>
         </div>
+    </div>
 </body>
 </html>
