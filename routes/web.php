@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PublicFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,12 @@ Route::post('/login', [AuthController::class, 'auth']);
 
 Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
 
+//PENGERJAAN GW
+Route::get('/dashboardPublic', [PublicFileController::class, 'index']);
+
+
+
+//============
 // Route::get('/dashboard',function(){
 //     return view('homepage');
 // })->middleware('auth');
@@ -44,12 +51,22 @@ Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
 Route::post('/upload', [FileController::class, 'insert']);
 Route::get('/menu', [AuthController::class, 'menu']);
 
-//Route::get('/dashboard',[FileController::class, 'logoutTime']);
+//=======================
+Route::post('/uploadPublic', [PublicFileController::class, 'insert']);
+
+
+//======================
+
+
 
 Route::post('/delete/{id}', [FileController::class, 'delete']);
 Route::post('/download/{id}', [FileController::class, 'download']);
 
-Route::get('/settings', [FileController::class, 'settings']);
-Route::put('/settings', [FileController::class, 'updatePassword']);
+Route::post('/downloadPublic/{id}', [PublicFileController::class, 'download']);
+Route::post('/deletePublic/{id}', [PublicFileController::class, 'delete']);
+
+
+
+
 
 
