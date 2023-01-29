@@ -75,8 +75,7 @@ class FileController extends Controller
         $file = File::find($request->id);
 
         if(isset($file)){
-            // dd($file->name);
-            Storage::delete('public/files/'.$file->discriminator);
+            Storage::delete('public/files/' . $file->discriminator);
             $file->delete();
         }
 
