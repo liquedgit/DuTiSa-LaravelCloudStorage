@@ -12,27 +12,62 @@ use Illuminate\Support\Facades\Validator;
 
 class FileController extends Controller
 {
-    public function index(){
+    public function viewDashboard() {
         $curr = time();
         $last = Session::get('time');
+
         if($curr - $last > 60){
             return redirect('/logout');
         }
+
         Session::put('time', time());
-        $files = DB::table('files')->where('TraineeCode', 'like', Auth::user()->TraineeCode)->simplePaginate(4);
-        return view('homepage', compact('files'));
+
+        $files = File::where("TraineeCode", "=", Auth::user()->TraineeCode)->simplePaginate(8);
+
+        return view("/dashboard", compact('files'));
     }
 
-    public function insert(Request $request){
+    // public function uploadFiles(Request $request){
+    //     $curr = time();
+    //     $last = Session::get('time');
+    //     if($curr - $last > 60){
+    //         return redirect('/logout');
+    //     }
+    //     Session::put('time', time());
+    //     $rules = [
+    //         'file' => 'required'
+    //     ];
+    //     $validator = Validator::make($request->all(), $rules);
+    //     if($validator->fails()){
+    //         return back()->withErrors($validator);
+    //     }
+
+    //     foreach($request->file('file') as $file){
+    //         $filename = $file->getClientOriginalName();
+    //         Storage::putFileAs('public/files', $file, $filename);
+    //         $file = new File();
+    //         $file->TraineeCode = Auth::user()->TraineeCode;
+    //         $file->name = $filename;
+    //         $file->save();
+    //     }
+    //     return redirect('/dashboard');
+    // }
+
+    public function uploadFiles(Request $request){
         $curr = time();
         $last = Session::get('time');
+
         if($curr - $last > 60){
             return redirect('/logout');
         }
+
         Session::put('time', time());
+
+
         $rules = [
             'file' => 'required'
         ];
+
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
             return back()->withErrors($validator);
@@ -49,22 +84,28 @@ class FileController extends Controller
             $file->name = $filename;
             $file->save();
         }
+
         return redirect('/dashboard');
     }
 
-    public function delete($id){
+    public function delete(Request $request){
         $curr = time();
         $last = Session::get('time');
+
         if($curr - $last > 60){
             return redirect('/logout');
         }
+
         Session::put('time', time());
-        $file = File::find($id);
+
+        $file = File::find($request->id);
+
         if(isset($file)){
             // dd($file->name);
             Storage::delete('public/files/'.$file->discriminator);
             $file->delete();
         }
+
         return redirect('/dashboard');
     }
 

@@ -3,7 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PublicFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +15,12 @@ use App\Http\Controllers\PublicFileController;
 |
 */
 
+Route::get("/", [AuthController::class, 'viewLogin']);
 
-Route::get('/', function () {
-    return view('/auth/login');
-});
+
+//Route::get('/', function () {
+//    return view('/auth/login');
+//});
 
 Route::get('/logindirect', function () {
     return view('/auth/login');
@@ -31,31 +32,22 @@ Route::get('/registerdirect', function () {
 
 Route::post('/registerpage', [AuthController::class, 'register']);
 
+Route::get("/login", [AuthController::class, 'viewLogin']);
 
-Route::get('/logout', [AuthController::class, 'logout']);
+Route::post("/login", [AuthController::class, 'executeLogin']);
 
-Route::post('/login', [AuthController::class, 'auth']);
+Route::get('/logout', [AuthController::class, 'executeLogout']);
 
-Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [FileController::class, 'viewDashboard']);
 
-//PENGERJAAN GW
 Route::get('/dashboardPublic', [PublicFileController::class, 'index']);
 
 
 
-//============
-// Route::get('/dashboard',function(){
-//     return view('homepage');
-// })->middleware('auth');
+Route::post('/upload', [FileController::class, 'uploadFiles']);
 
-Route::post('/upload', [FileController::class, 'insert']);
-Route::get('/menu', [AuthController::class, 'menu']);
-
-//=======================
 Route::post('/uploadPublic', [PublicFileController::class, 'insert']);
 
-
-//======================
 
 
 
@@ -68,5 +60,7 @@ Route::post('/deletePublic/{id}', [PublicFileController::class, 'delete']);
 
 
 
+Route::get('/settings', [UserController::class, 'settings']);
+Route::put('/settings', [UserController::class, 'updatePassword']);
 
 

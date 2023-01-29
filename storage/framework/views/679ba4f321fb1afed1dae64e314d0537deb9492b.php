@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
+    <title><?php echo e(config('app.name')); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
 </head>
 
 <body class="container">
@@ -19,12 +19,12 @@
             <a class="navbar-brand fs-3" href="#">DuTiSa Cloud Drive</a>
             <ul class="navbar-nav">
                 <li class="nav-item mx-2">
-                    <a class="nav-link active" aria-current="page" href="{{ url('dashboard') }}">
+                    <a class="nav-link active" aria-current="page" href="<?php echo e(url('dashboard')); ?>">
                         <button class="btn btn-primary">Dashboard</button>
                     </a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link active" aria-current="page" href="{{ url('/logout') }}">
+                    <a class="nav-link active" aria-current="page" href="<?php echo e(url('/logout')); ?>">
                         <button class="btn btn-primary">Logout</button>
                     </a>
                 </li>
@@ -33,14 +33,15 @@
     </nav>
     <div class="container">
         <div class="container bg-info my-3 fs-5 px-4 py-2 text-light">
-            {{ 'Hello ' . Auth::user()->TraineeCode . ', ' . Auth::user()->name }}
+            <?php echo e('Hello ' . Auth::user()->TraineeCode . ', ' . Auth::user()->name); ?>
+
         </div>
         <div class="container">
             <div class="m-2">Change Password</div>
             <hr class="border border-primary border-1 opacity-75">
-            <form method="post" action="{{ url('settings') }}" class="my-3">
-                @csrf
-                @method('put')
+            <form method="post" action="<?php echo e(url('settings')); ?>" class="my-3">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('put'); ?>
                 <div class="w-50 mb-3">
                     <label for="new-password" class="form-label">New Password</label>
                     <input type="password" class="form-control border border-dark border-1" name="new_password"
@@ -55,13 +56,14 @@
             </form>
         </div>
 
-        @if ($errors->any())
+        <?php if($errors->any()): ?>
             <div class="container">
                 <div class="alert alert-primary w-50" role="alert">
-                    {{ $errors->first() }}
+                    <?php echo e($errors->first()); ?>
+
                 </div>
             </div>
-        @endif
+        <?php endif; ?>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
@@ -72,3 +74,4 @@
 </body>
 
 </html>
+<?php /**PATH C:\Users\jerem\OneDrive\Desktop\DuTiSa-LaravelCloudStorage-main\resources\views/settings.blade.php ENDPATH**/ ?>
