@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PublicFileController extends Controller
 {
-    public function index(){
+    public function viewDashboard(){
         $curr = time();
         $last = Session::get('time');
         if($curr - $last > 60){
             return redirect('/logout');
         }
         Session::put('time', time());
-        $files = DB::table('public_files')->simplePaginate(4);
-        return view('homepagePublic', compact('files'));
+        $files = DB::table('public_files')->simplePaginate(10);
+        return view('dashboardPublic', compact('files'));
     }
 
-    public function insert(Request $request){
+    public function uploadFiles(Request $request){
         $curr = time();
         $last = Session::get('time');
         if($curr - $last > 60){
@@ -43,17 +43,16 @@ class PublicFileController extends Controller
         foreach($request->file('file') as $file){
             $filename = $file->getClientOriginalName();
 
-            $fileDiscriminator = Time().$filename; // generate unique name
+            $fileDiscriminator = Time().$filename;
             Storage::putFileAs('public/public_files', $file, $fileDiscriminator);
             $file = new PublicFile();
-            ///============================================================
-            //===================================
             $file->name = $filename;
             $file->discriminator = $fileDiscriminator;
             $file->save();
         }
         return redirect('/dashboardPublic');
     }
+
 
     public function delete($id){
         $curr = time();

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicFileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", [AuthController::class, 'viewLogin']);
 
-
-//Route::get('/', function () {
-//    return view('/auth/login');
-//});
 
 Route::get('/logindirect', function () {
     return view('/auth/login');
@@ -40,13 +38,13 @@ Route::get('/logout', [AuthController::class, 'executeLogout']);
 
 Route::get('/dashboard', [FileController::class, 'viewDashboard']);
 
-Route::get('/dashboardPublic', [PublicFileController::class, 'index']);
+Route::get('/dashboardPublic', [PublicFileController::class, 'viewDashboard']);
 
 
 
 Route::post('/upload', [FileController::class, 'uploadFiles']);
 
-Route::post('/uploadPublic', [PublicFileController::class, 'insert']);
+Route::post('/uploadPublic', [PublicFileController::class, 'uploadFiles']);
 
 
 

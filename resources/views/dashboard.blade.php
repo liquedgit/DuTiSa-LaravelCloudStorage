@@ -59,15 +59,17 @@
                 <button class="btn btn-primary w-100" type="submit" id="btn" value="Upload">Upload</button>
             </form>
         </div>
-        <div class="file-table container mt-5 mb-5">
+        <hr class="file-table container mt-5 mb-5">
             <div class="m-2 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     Private Files
-                    <button class="btn btn-primary">Go To Public Folder</button>
+                    <a href="{{ url('/dashboardPublic') }}">
+                        <button class="btn btn-primary">Go To Public Folder</button>
+                    </a>
                 </div>
-                {{ $files->links() }}
+                {{ $files->appends($_GET)->links() }}
             </div>
-            <hr class="border border-primary border-1 opacity-75" <form class="d-flex align-items-center"
+            <hr class="border border-primary border-1 opacity-75"> <form class="d-flex align-items-center"
                 action="/upload" method="post" enctype="multipart/form-data">
             <table class="table">
                 <thead>
@@ -132,6 +134,8 @@
                 </tbody>
 
             </table>
+            </form>
+            </hr>
         </div>
     </div>
 

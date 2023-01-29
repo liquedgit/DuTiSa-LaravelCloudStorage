@@ -16,8 +16,13 @@
 <body>
     <div class="login-form card position-absolute top-50 start-50 translate-middle">
         <h3 class="title">DuTiSa Cloud Drive</h3>
-        <form method="post" action="{{ url('login') }}" class="my-3">
+        <form method="post" action="{{ url('/registerpage') }}" class="my-3">
             @csrf
+            <div class="mb-3">
+                <label for="trainee-code" class="form-label">Trainee Name</label>
+                <input type="text" class="form-control border border-dark border-1" name="TraineeName"
+                       placeholder="Name">
+            </div>
             <div class="mb-3">
                 <label for="trainee-code" class="form-label">Trainee Code</label>
                 <input type="text" class="form-control border border-dark border-1" name="TraineeCode"
@@ -25,13 +30,18 @@
             </div>
             <div class="mb-3">
                 <label for="trainee-password" class="form-label">Password</label>
-                <input type="password" class="form-control border border-dark border-1" name="password"
-                    placeholder="Password">
+                <input type="password" class="form-control border border-dark border-1" name="Password"
+                       placeholder="Password">
             </div>
-            <button type="submit" style="width: 100%;" class="btn btn-primary">Login</button>
+            <div class="mb-3">
+                <label for="trainee-password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control border border-dark border-1" name="ConfirmPassword"
+                    placeholder="Confirm Password">
+            </div>
+            <button type="submit" style="width: 100%;" class="btn btn-primary">Register</button>
         </form>
         <div class="mb-3">
-            Dont have an account? <a href="{{ url('/registerdirect') }}">Register</a>
+            Already have an account?? <a href="{{ url('/logindirect') }}">Login</a>
         </div>
         @if ($errors->any())
             <div class="alert alert-primary" role="alert">

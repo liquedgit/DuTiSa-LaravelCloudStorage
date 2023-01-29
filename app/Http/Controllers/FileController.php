@@ -22,36 +22,10 @@ class FileController extends Controller
 
         Session::put('time', time());
 
-        $files = File::where("TraineeCode", "=", Auth::user()->TraineeCode)->simplePaginate(8);
+        $files = File::where("TraineeCode", "=", Auth::user()->TraineeCode)->simplePaginate(10);
 
         return view("/dashboard", compact('files'));
     }
-
-    // public function uploadFiles(Request $request){
-    //     $curr = time();
-    //     $last = Session::get('time');
-    //     if($curr - $last > 60){
-    //         return redirect('/logout');
-    //     }
-    //     Session::put('time', time());
-    //     $rules = [
-    //         'file' => 'required'
-    //     ];
-    //     $validator = Validator::make($request->all(), $rules);
-    //     if($validator->fails()){
-    //         return back()->withErrors($validator);
-    //     }
-
-    //     foreach($request->file('file') as $file){
-    //         $filename = $file->getClientOriginalName();
-    //         Storage::putFileAs('public/files', $file, $filename);
-    //         $file = new File();
-    //         $file->TraineeCode = Auth::user()->TraineeCode;
-    //         $file->name = $filename;
-    //         $file->save();
-    //     }
-    //     return redirect('/dashboard');
-    // }
 
     public function uploadFiles(Request $request){
         $curr = time();
