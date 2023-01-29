@@ -30,6 +30,7 @@ Route::post('/upload', [FileController::class, 'uploadFiles']);
 
 Route::post('/delete/{id}', [FileController::class, 'delete']);
 Route::post('/download/{id}', [FileController::class, 'download']);
+Route::post('/view/{id}', [FileController::class, 'view']);
 
 Route::get('/settings', [UserController::class, 'settings']);
 Route::put('/settings', [UserController::class, 'updatePassword']);

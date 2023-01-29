@@ -116,4 +116,16 @@ class FileController extends Controller
         $file = File::find($id);
         return Storage::download('public/files/'.$file->name);
     }
+
+    public function view($id){
+        $curr = time();
+        $last = Session::get('time');
+        if($curr - $last > 60){
+            return redirect('/logout');
+        }
+        Session::put('time', time());
+
+        $file = File::find($id);
+        return $file->id;
+    }
 }
