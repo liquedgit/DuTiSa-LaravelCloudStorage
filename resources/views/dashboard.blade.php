@@ -16,6 +16,7 @@
 </head>
 
 <body class="container">
+
 <nav class="navbar navbar-expand-lg my-3">
     <div class="container-fluid d-flex">
         <a class="navbar-brand fs-3" href="#">DuTiSa Cloud Drive</a>
@@ -33,10 +34,12 @@
         </ul>
     </div>
 </nav>
+
 <div class="container">
     <div class="container bg-info my-3 fs-5 px-4 py-2 text-light">
         {{ 'Hello ' . Auth::user()->TraineeCode . ', ' . Auth::user()->name }}
     </div>
+
     <div class="container">
         <div class="m-2">Upload New Files</div>
         <hr class="border border-primary border-1 opacity-75">
@@ -59,7 +62,9 @@
             <button class="btn btn-primary w-100" type="submit" id="btn" value="Upload">Upload</button>
         </form>
     </div>
+
     <hr class="file-table container mt-5 mb-5">
+
     <div class="m-2 d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
             Private Files
@@ -69,7 +74,9 @@
         </div>
         {{ $files->appends($_GET)->links() }}
     </div>
+
     <hr class="border border-primary border-1 opacity-75">
+
     <table class="table">
         <thead>
         <tr>
@@ -85,12 +92,12 @@
             <tr>
                 <td>{{ $file->name }}</td>
                 <td class="col-sm-2 text-center">
-                @php
-                    $extension = explode('.', $file->name)[1];
-                @endphp
+                    @php
+                        $extension = explode('.', $file->name)[1];
+                    @endphp
 
-                @if ($extension == 'txt')
-                    <!-- Button trigger modal -->
+                    @if ($extension == 'txt')
+                        <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#modal{{ $file->id }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -103,20 +110,18 @@
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="modal{{ $file->id }}" tabindex="-1"
+                        <div class="modal fade modal-xl" id="modal{{ $file->id }}" tabindex="-1"
                              aria-labelledby="ModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                            {{ $file->name }}</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ $file->name }}</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <iframe
-                                                src="{{ Storage::url('public/files/' . $file->discriminator) }}"
-                                                frameborder="0">
+                                        <iframe class="w-100" height="600px"
+                                                src="{{ Storage::url('public/files/' . $file->discriminator) }}">
                                         </iframe>
                                     </div>
                                     <div class="modal-footer">
@@ -162,8 +167,6 @@
         </tbody>
 
     </table>
-    </form>
-</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

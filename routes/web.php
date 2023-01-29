@@ -41,12 +41,9 @@ Route::get('/dashboard', [FileController::class, 'viewDashboard']);
 Route::get('/dashboardPublic', [PublicFileController::class, 'viewDashboard']);
 
 
-
 Route::post('/upload', [FileController::class, 'uploadFiles']);
 
 Route::post('/uploadPublic', [PublicFileController::class, 'uploadFiles']);
-
-
 
 
 Route::post('/delete/{id}', [FileController::class, 'delete']);
