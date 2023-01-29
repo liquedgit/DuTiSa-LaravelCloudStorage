@@ -32,7 +32,7 @@
 </div>
 
 
-<h2 class="card-title text-center">Hello, {{get_current_user()}}</h2>
+<h2 class="card-title text-center">Hello, {{session()->get('name', ' ')}}</h2>
 
 
 <table class="table caption-top" id="table">
