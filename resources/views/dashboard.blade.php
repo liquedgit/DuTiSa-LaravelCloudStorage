@@ -59,15 +59,17 @@
                 <button class="btn btn-primary w-100" type="submit" id="btn" value="Upload">Upload</button>
             </form>
         </div>
-        <div class="file-table container mt-5 mb-5">
+        <hr class="file-table container mt-5 mb-5">
             <div class="m-2 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
                     Private Files
-                    <button class="btn btn-primary">Go To Public Folder</button>
+                    <a href="{{ url('/dashboardPublic') }}">
+                        <button class="btn btn-primary">Go To Public Folder</button>
+                    </a>
                 </div>
-                {{ $files->links() }}
+                {{ $files->appends($_GET)->links() }}
             </div>
-            <hr class="border border-primary border-1 opacity-75" ><form class="d-flex align-items-center"
+            <hr class="border border-primary border-1 opacity-75"> <form class="d-flex align-items-center"
                 action="/upload" method="post" enctype="multipart/form-data">
             <table class="table">
                 <thead>
@@ -91,7 +93,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="viewModal{{$file->id}}">{{$file->name}}</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -99,12 +101,12 @@
                                                     <iframe src="{{Storage::url('public/files/'.$file->name)}}" width="100%" height="600px"></iframe>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewModal{{$file->id}}">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal{{$file->id}}">
                                         View
                                     </button>
                                 </form>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\PublicFile;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,38 +12,29 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class FileController extends Controller
+class PublicFileController extends Controller
 {
-    public function viewDashboard() {
+    public function viewDashboard(){
         $curr = time();
         $last = Session::get('time');
-
         if($curr - $last > 60){
             return redirect('/logout');
         }
-
         Session::put('time', time());
-
-        $files = File::where("TraineeCode", "=", Auth::user()->TraineeCode)->simplePaginate(10);
-
-        return view("/dashboard", compact('files'));
+        $files = DB::table('public_files')->simplePaginate(10);
+        return view('dashboardPublic', compact('files'));
     }
 
     public function uploadFiles(Request $request){
         $curr = time();
         $last = Session::get('time');
-
         if($curr - $last > 60){
             return redirect('/logout');
         }
-
         Session::put('time', time());
-
-
         $rules = [
             'file' => 'required'
         ];
-
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
             return back()->withErrors($validator);
@@ -50,37 +43,31 @@ class FileController extends Controller
         foreach($request->file('file') as $file){
             $filename = $file->getClientOriginalName();
 
-            $fileDiscriminator = Time().$filename; // generate unique name
-            Storage::putFileAs('public/files', $file, $fileDiscriminator);
-            $file = new File();
-            $file->TraineeCode = Auth::user()->TraineeCode;
-            $file->discriminator = $fileDiscriminator;
+            $fileDiscriminator = Time().$filename;
+            Storage::putFileAs('public/public_files', $file, $fileDiscriminator);
+            $file = new PublicFile();
             $file->name = $filename;
+            $file->discriminator = $fileDiscriminator;
             $file->save();
         }
-
-        return redirect('/dashboard');
+        return redirect('/dashboardPublic');
     }
 
-    public function delete(Request $request){
+
+    public function delete($id){
         $curr = time();
         $last = Session::get('time');
-
         if($curr - $last > 60){
             return redirect('/logout');
         }
-
         Session::put('time', time());
-
-        $file = File::find($request->id);
-
+        $file = PublicFile::find($id);
         if(isset($file)){
             // dd($file->name);
-            Storage::delete('public/files/'.$file->discriminator);
+            Storage::delete('public/public_files/'.$file->discriminator);
             $file->delete();
         }
-
-        return redirect('/dashboard');
+        return redirect('/dashboardPublic');
     }
 
     public function download($id){
@@ -91,19 +78,7 @@ class FileController extends Controller
         }
         Session::put('time', time());
 
-        $file = File::find($id);
-        return Storage::download('public/files/'.$file->discriminator);
-    }
-
-    public function view($id){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
-
-        $file = File::find($id);
-        return $file->id;
+        $file = PublicFile::find($id);
+        return Storage::download('public/public_files/'.$file->discriminator);
     }
 }

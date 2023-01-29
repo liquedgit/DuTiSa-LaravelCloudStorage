@@ -32,4 +32,35 @@ class AuthController extends Controller {
         Auth::logout();
         return redirect("/login");
     }
+
+    public function viewRegister() {
+        return view("auth.register");
+    }
+
+    public function Register(Request $request) {
+
+        $data = $request->validate([
+            'TraineeCode' => 'required|regex:/^T([0-9]){3}/|max:4',
+            'TraineeName' => 'required',
+            'Password' => 'required',
+            'ConfirmPassword' => 'required'
+        ]);
+
+        if($data['Password'] != $data['ConfirmPassword']){
+            return back()->withErrors(["status" => "Password does not match"]);
+        }
+
+        if(DB::table('users')->where('TraineeCode', $data['TraineeCode'])->exists()){
+            return back()->withErrors(["status" => "Trainee number already exists"]);
+        }
+
+        DB::table('users')->insert([
+            'name' => $data['TraineeName'],
+            'TraineeCode' => $data['TraineeCode'],
+            'password' => bcrypt($data['Password'])
+        ]);
+
+        return redirect('/logindirect');
+    }
+
 }
