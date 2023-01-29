@@ -49,16 +49,21 @@ class AuthController extends Controller
     public function register(Request $request){
 
         $data = $request->validate([
-            'TraineeCode' => 'required',
+            'TraineeCode' => 'required|regex:/^T([0-9]){3}/|max:4',
             'name' => 'required',
             'password' => 'required',
             'ConfirmPassword' => 'required'
         ]);
 
 
+
+
+
         if($data['password'] != $data['ConfirmPassword']){
             return back()->withErrors(["status" => "Password does not match"]);
         }
+
+
 
         if(DB::table('users')->where('TraineeCode', $data['TraineeCode'])->exists()){
             return back()->withErrors(["status" => "Trainee number already exists"]);

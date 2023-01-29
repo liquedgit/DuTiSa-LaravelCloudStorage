@@ -44,11 +44,12 @@ Route::get('/dashboard', [FileController::class, 'index'])->middleware('auth');
 Route::post('/upload', [FileController::class, 'insert']);
 Route::get('/menu', [AuthController::class, 'menu']);
 
+//Route::get('/dashboard',[FileController::class, 'logoutTime']);
+
 Route::post('/delete/{id}', [FileController::class, 'delete']);
 Route::post('/download/{id}', [FileController::class, 'download']);
 
-
-
-
+Route::get('/settings', [FileController::class, 'settings']);
+Route::put('/settings', [FileController::class, 'updatePassword']);
 
 
