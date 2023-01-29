@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
         integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 
 <body class="container">
@@ -37,28 +44,66 @@
         <div class="container bg-info my-3 fs-5 px-4 py-2 text-light">
             {{ 'Hello ' . Auth::user()->TraineeCode . ', ' . Auth::user()->name }}
         </div>
-        <div class="container">
-            <div class="m-2">Upload New Files</div>
-            <hr class="border border-primary border-1 opacity-75">
-            <form class="d-flex flex-column align-items-start gap-2" action="/upload" method="post"
-                enctype="multipart/form-data">
-                @csrf
-                <label class="me-2 w-100 d-flex justify-content-center gap-2" for="form-file" id="choose-file-label">
-                    <a href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
-                            class="bi bi-cloud-upload" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
-                            <path fill-rule="evenodd"
-                                d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3z" />
-                        </svg>
-                    </a>
-                    Choose Files
-                </label>
-                <input class="form-control" type="file" id="form-file" hidden name="file[]" multiple>
-                <button class="btn btn-primary w-100" type="submit" id="btn" value="Upload">Upload</button>
+        <div class="container mt-5">
+            <h2>Upload Image</h2>
+            <form id="addFiles" method="post" action="{{route('submitFile')}}" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input type="file" name="image" id='image' class='p-5'>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" id='saveButton' class="btn btn-primary">Save</button>
+                </div>
             </form>
         </div>
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+        <script>
+            //configuration filepond
+            const inputElement = document.querySelector('input[id="image"]');
+
+            // Create a FilePond instance
+            const pond = FilePond.create(inputElement);
+
+            //tujuan filepond
+            FilePond.setOptions({
+                server: {
+                    process: '{{ route('uploadFileDrop') }}', //upload
+                    revert: '{{ route('hapus') }}', //cancel
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                }
+            });
+            //end config filepond
+
+            $(document).ready(function() {
+                $("#addFiles").on('submit', function(e) {
+                    e.preventDefault();
+                    $("#saveButton").html('Processing...').attr('disabled', 'disabled');
+                    var link = $("#addFiles").attr('action');
+                    $.ajax({
+                        url: link,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "POST",
+                        data: new FormData(this),
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $("#saveButton").html('Save').removeAttr('disabled');
+                            pond.removeFiles();
+                            alert('Berhasil')
+                        },
+                        error: function(response) {
+                            $("#saveButton").html('Save').removeAttr('disabled');
+                            alert(response.error);
+                        }
+                    });
+                });
+
+            });
+        </script>
         <hr class="file-table container mt-5 mb-5">
             <div class="m-2 d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">

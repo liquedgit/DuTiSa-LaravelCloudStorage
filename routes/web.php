@@ -56,9 +56,18 @@ Route::post('/downloadPublic/{id}', [PublicFileController::class, 'download']);
 Route::post('/deletePublic/{id}', [PublicFileController::class, 'delete']);
 
 
-
-
 Route::get('/settings', [UserController::class, 'settings']);
 Route::put('/settings', [UserController::class, 'updatePassword']);
+
+Route::controller(FileController::class)->group(function () {
+    Route::get('/image', 'index');
+    Route::post('/submitFile', 'storePermanent')->name('submitFile');
+});
+
+Route::controller(FileController::class)->group(function () {
+    Route::post('/uploadFile', 'storeTemporary')->name('uploadFileDrop');
+    Route::delete('/hapus', 'destroy')->name('hapus');
+});
+
 
 

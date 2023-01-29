@@ -86,11 +86,11 @@ class DatabaseSeeder extends Seeder
 //            'TraineeCode' => 'T085',
 //            'password' => bcrypt('ric123')
 //        ]);
-//        DB::table('users')->insert([
-//            'name' => 'Robert William',
-//            'TraineeCode' => 'T094',
-//            'password' => bcrypt('ric123')
-//        ]);
+        DB::table('users')->insert([
+            'name' => 'Robert William',
+            'TraineeCode' => 'T094',
+            'password' => bcrypt('ric123')
+        ]);
 //        DB::table('users')->insert([
 //            'name' => 'Andrew Nicholas',
 //            'TraineeCode' => 'T106',
