@@ -70,7 +70,7 @@
                 </div>
                 {{ $files->links() }}
             </div>
-            <hr class="border border-primary border-1 opacity-75" <form class="d-flex align-items-center"
+            <hr class="border border-primary border-1 opacity-75" ><form class="d-flex align-items-center"
                 action="/upload" method="post" enctype="multipart/form-data">
             <table class="table">
                 <thead>
@@ -146,6 +146,7 @@
                 </tbody>
 
             </table>
+            </form>
         </div>
     </div>
 
