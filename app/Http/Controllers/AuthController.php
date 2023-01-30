@@ -37,7 +37,7 @@ class AuthController extends Controller {
         return view("auth.register");
     }
 
-    public function Register(Request $request) {
+    public function executeRegister(Request $request) {
 
         $data = $request->validate([
             'TraineeCode' => 'required|regex:/^T([0-9]){3}/|max:4',
@@ -60,7 +60,7 @@ class AuthController extends Controller {
             'password' => bcrypt($data['Password'])
         ]);
 
-        return redirect('/logindirect');
+        return redirect('/login');
     }
 
 }

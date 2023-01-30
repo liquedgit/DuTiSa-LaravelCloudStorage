@@ -16,7 +16,7 @@
 <body>
 <div class="login-form card position-absolute top-50 start-50 translate-middle">
     <h3 class="title">DuTiSa Cloud Drive</h3>
-    <form method="post" action="{{ url('/registerpage') }}" class="my-3">
+    <form method="post" action="{{ url('/register') }}" class="my-3">
         @csrf
         <div class="mb-3">
             <label for="trainee-code" class="form-label">Trainee Name</label>
@@ -41,7 +41,7 @@
         <button type="submit" style="width: 100%;" class="btn btn-primary">Register</button>
     </form>
     <div class="mb-3">
-        Already have an account?? <a href="{{ url('/logindirect') }}">Login</a>
+        Already have an account? <a href="{{ url('/login') }}">Login</a>
     </div>
     @if ($errors->any())
         <div class="alert alert-primary" role="alert">

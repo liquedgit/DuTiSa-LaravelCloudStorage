@@ -31,7 +31,7 @@
         <button type="submit" style="width: 100%;" class="btn btn-primary">Login</button>
     </form>
     <div class="mb-3">
-        Dont have an account? <a href="{{ url('/registerdirect') }}">Register</a>
+        Dont have an account? <a href="{{ url('/register') }}">Register</a>
     </div>
     @if ($errors->any())
         <div class="alert alert-primary" role="alert">

@@ -19,42 +19,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", [AuthController::class, 'viewLogin']);
 
-
-Route::get('/logindirect', function () {
-    return view('/auth/login');
-});
-
-Route::get('/registerdirect', function () {
-    return view('/auth/register');
-});
-
-Route::post('/registerpage', [AuthController::class, 'register']);
+Route::get('/register', [AuthController::class, 'viewRegister']);
+Route::post('/register', [AuthController::class, 'executeRegister']);
 
 Route::get("/login", [AuthController::class, 'viewLogin']);
-
 Route::post("/login", [AuthController::class, 'executeLogin']);
 
 Route::get('/logout', [AuthController::class, 'executeLogout']);
+Route::get('/dashboard', [FileController::class, 'viewDashboard'])->middleware('auth.middleware');
+Route::get('/dashboardPublic', [PublicFileController::class, 'viewDashboard'])->middleware('auth.middleware');
 
-Route::get('/dashboard', [FileController::class, 'viewDashboard']);
+Route::post('/upload', [FileController::class, 'uploadFiles'])->middleware('auth.middleware');
+Route::post('/uploadPublic', [PublicFileController::class, 'uploadFiles'])->middleware('auth.middleware');
 
-Route::get('/dashboardPublic', [PublicFileController::class, 'viewDashboard']);
+Route::post('/delete/{id}', [FileController::class, 'delete'])->middleware('auth.middleware');
+Route::post('/download/{id}', [FileController::class, 'download'])->middleware('auth.middleware');
 
+Route::post('/downloadPublic/{id}', [PublicFileController::class, 'download'])->middleware('auth.middleware');
+Route::post('/deletePublic/{id}', [PublicFileController::class, 'delete'])->middleware('auth.middleware');
 
-Route::post('/upload', [FileController::class, 'uploadFiles']);
-
-Route::post('/uploadPublic', [PublicFileController::class, 'uploadFiles']);
-
-
-Route::post('/delete/{id}', [FileController::class, 'delete']);
-Route::post('/download/{id}', [FileController::class, 'download']);
-
-Route::post('/downloadPublic/{id}', [PublicFileController::class, 'download']);
-Route::post('/deletePublic/{id}', [PublicFileController::class, 'delete']);
-
-Route::post('/view/{id}', [FileController::class, 'view']);
-
-Route::get('/settings', [UserController::class, 'settings']);
-Route::put('/settings', [UserController::class, 'updatePassword']);
-
-
+Route::get('/settings', [UserController::class, 'settings'])->middleware('auth.middleware');
+Route::put('/settings', [UserController::class, 'updatePassword'])->middleware('auth.middleware');
