@@ -4,16 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
+    <title><?php echo e(config('app.name')); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="{{ asset('/js/listener.js') }}"></script>
+    <script src="<?php echo e(asset('/js/listener.js')); ?>"></script>
 </head>
 
 <body class="container">
@@ -23,12 +23,12 @@
         <a class="navbar-brand fs-3" href="#">DuTiSa Cloud Drive</a>
         <ul class="navbar-nav">
             <li class="nav-item mx-2">
-                <a class="nav-link active" aria-current="page" href="{{ url('/settings') }}">
+                <a class="nav-link active" aria-current="page" href="<?php echo e(url('/settings')); ?>">
                     <button class="btn btn-primary">Settings</button>
                 </a>
             </li>
             <li class="nav-item mx-2">
-                <a class="nav-link active" aria-current="page" href="{{ url('/logout') }}">
+                <a class="nav-link active" aria-current="page" href="<?php echo e(url('/logout')); ?>">
                     <button class="btn btn-primary">Logout</button>
                 </a>
             </li>
@@ -38,15 +38,16 @@
 
 <div class="container">
     <div class="container bg-info my-3 fs-5 px-4 py-2 text-light">
-        {{ 'Hello ' . Auth::user()->TraineeCode . ', ' . Auth::user()->name }}
+        <?php echo e('Hello ' . Auth::user()->TraineeCode . ', ' . Auth::user()->name); ?>
+
     </div>
 
     <div class="container">
         <div class="m-2">Upload New Files</div>
         <hr class="border border-primary border-1 opacity-75">
-        <form class="d-flex flex-column align-items-start gap-2" action="{{ url('/upload') }}" method="post"
+        <form class="d-flex flex-column align-items-start gap-2" action="<?php echo e(url('/upload')); ?>" method="post"
               enctype="multipart/form-data">
-            @csrf
+            <?php echo csrf_field(); ?>
             <label class="me-2 w-100 d-flex justify-content-center gap-2" for="form-file" id="choose-file-label">
                 <a href="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000"
@@ -69,11 +70,12 @@
     <div class="m-2 d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
             Private Files
-            <a href="{{ url('/dashboardPublic') }}">
+            <a href="<?php echo e(url('/dashboardPublic')); ?>">
                 <button class="btn btn-primary">Go To Public Folder</button>
             </a>
         </div>
-        {{ $files->appends($_GET)->links() }}
+        <?php echo e($files->appends($_GET)->links()); ?>
+
     </div>
 
     <hr class="border border-primary border-1 opacity-75">
@@ -89,18 +91,18 @@
         </thead>
         <tbody>
 
-        @foreach ($files as $file)
+        <?php $__currentLoopData = $files; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td>{{ $file->name }}</td>
+                <td><?php echo e($file->name); ?></td>
                 <td class="col-sm-2 text-center">
-                    @php
+                    <?php
                         $extension = explode('.', $file->name)[1];
-                    @endphp
+                    ?>
 
-                    @if ($extension == 'txt')
+                    <?php if($extension == 'txt'): ?>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#modal{{ $file->id }}">
+                                data-bs-target="#modal<?php echo e($file->id); ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                  fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                 <path
@@ -111,18 +113,18 @@
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade modal-xl" id="modal{{ $file->id }}" tabindex="-1"
+                        <div class="modal fade modal-xl" id="modal<?php echo e($file->id); ?>" tabindex="-1"
                              aria-labelledby="ModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ $file->name }}</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel"> <?php echo e($file->name); ?></h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <iframe class="w-100" height="600px"
-                                                src="{{ Storage::url('public/files/' . $file->discriminator) }}">
+                                                src="<?php echo e(Storage::url('public/files/' . $file->discriminator)); ?>">
                                         </iframe>
                                     </div>
                                     <div class="modal-footer">
@@ -133,12 +135,12 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </td>
                 <td class="col-sm-2 text-center">
-                    <form action="{{ url('/download/' . $file->id) }}" method="post"
-                          id="downloadform{{ $file->id }}">
-                        @csrf
+                    <form action="<?php echo e(url('/download/' . $file->id)); ?>" method="post"
+                          id="downloadform<?php echo e($file->id); ?>">
+                        <?php echo csrf_field(); ?>
                         <button class="btn btn-primary" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                  fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
@@ -151,9 +153,9 @@
                     </form>
                 </td>
                 <td class="col-sm-2 text-center">
-                    <form action="{{ url('/delete/' . $file->id) }}" method="post"
-                          id="delform{{ $file->id }}">
-                        @csrf
+                    <form action="<?php echo e(url('/delete/' . $file->id)); ?>" method="post"
+                          id="delform<?php echo e($file->id); ?>">
+                        <?php echo csrf_field(); ?>
                         <button class="btn btn-primary" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                  fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -164,7 +166,7 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
 
     </table>
@@ -179,3 +181,4 @@
 </body>
 
 </html>
+<?php /**PATH D:\Work\Github\DuTiSa-LaravelCloudStorage\resources\views//dashboard.blade.php ENDPATH**/ ?>
