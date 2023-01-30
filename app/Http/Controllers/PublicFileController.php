@@ -81,4 +81,21 @@ class PublicFileController extends Controller
         $file = PublicFile::find($id);
         return Storage::download('public/public_files/'.$file->discriminator);
     }
+
+    public function store(Request $request)
+    {
+
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+        $fileDiscriminator = Time().$filename;
+
+        Storage::putFileAs('public/public_files', $file, $fileDiscriminator);
+        $file = new PublicFile();
+        $file->discriminator = $fileDiscriminator;
+        $file->name = $filename;
+        $file->save();
+
+        return 'success';
+    }
+
 }

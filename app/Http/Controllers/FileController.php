@@ -105,4 +105,25 @@ class FileController extends Controller
         $file = File::find($id);
         return $file->id;
     }
+
+    public function store(Request $request)
+    {
+
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+        $fileDiscriminator = Time().$filename;
+
+        Storage::putFileAs('public/files', $file, $fileDiscriminator);
+        $file = new File();
+        $file->TraineeCode = Auth::user()->TraineeCode;
+        $file->discriminator = $fileDiscriminator;
+        $file->name = $filename;
+        $file->save();
+
+        return 'success';
+    }
+
+
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -57,7 +58,9 @@ class AuthController extends Controller {
         DB::table('users')->insert([
             'name' => $data['TraineeName'],
             'TraineeCode' => $data['TraineeCode'],
-            'password' => bcrypt($data['Password'])
+            'password' => bcrypt($data['Password']),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         return redirect('/login');

@@ -40,3 +40,8 @@ Route::post('/deletePublic/{id}', [PublicFileController::class, 'delete'])->midd
 
 Route::get('/settings', [UserController::class, 'settings'])->middleware('auth.middleware');
 Route::put('/settings', [UserController::class, 'updatePassword'])->middleware('auth.middleware');
+
+Route::post('/upload', [FileController::class, 'store'])->name('uploadPrivate');
+
+Route::post('/uploadPublic', [PublicFileController::class, 'store'])->name('uploadPublic');
+
