@@ -1,5 +1,5 @@
 const CHECK_INTERVAL = 1000;
-const DEFAULT_TIMEOUT = 60000;
+const DEFAULT_TIMEOUT = 60000 * 5;
 let PREV_TIMER = Date.now();
 
 window.addEventListener('click', () => {

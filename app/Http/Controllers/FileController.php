@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use MongoDB\BSON\Javascript;
 
 class FileController extends Controller
 {
@@ -83,24 +85,12 @@ class FileController extends Controller
     }
 
     public function download($id){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
 
         $file = File::find($id);
         return Storage::download('public/files/'.$file->discriminator);
     }
 
     public function view($id){
-        $curr = time();
-        $last = Session::get('time');
-        if($curr - $last > 60){
-            return redirect('/logout');
-        }
-        Session::put('time', time());
 
         $file = File::find($id);
         return $file->id;
@@ -123,7 +113,34 @@ class FileController extends Controller
         return 'success';
     }
 
+    var $ids = "";
+    public function createLink($id){
+        $ids = $id;
+        $url = URL::signedRoute('share-file', [
+            'fileId' => $id
+        ]);
+?>
+
+    <div id="copyBtn" style="display: none"><?php echo $ids ?></div>
+    <script>
+
+        const string = document.querySelector('#copyBtn');
+
+        const input = document.createElement('input');
+        input.value = string.dataset.text;
+        document.body.appendChild(input);
+        input.select();
+        if(document.execCommand('copy')) {
+            alert('Text Copied');
+            document.body.removeChild(input);
+        });
+    </script>
+<?php
 
 
-
+        return $url;
+    }
 }
+
+
+?>

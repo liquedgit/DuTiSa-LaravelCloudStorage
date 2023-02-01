@@ -45,3 +45,12 @@ Route::post('/upload', [FileController::class, 'store'])->name('uploadPrivate');
 
 Route::post('/uploadPublic', [PublicFileController::class, 'store'])->name('uploadPublic');
 
+Route::get('shared/files//{fileId}', [FileController::class, 'download'])->name('share-file');
+Route::get('shared/files/{fileId}', [PublicFileController::class, 'download'])->name('share-file-public');
+
+Route::post('urlGen/{fileId}', [FileController::class, 'createLink']);
+Route::post('urlGenPublic/{fileId}', [PublicFileController::class, 'createLink']);
+
+Route::get("/down", function(){
+    return view('downloadPage');
+});

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class PublicFileController extends Controller
@@ -98,4 +99,15 @@ class PublicFileController extends Controller
         return 'success';
     }
 
+
+
+    public function createLink($id){
+        $url = URL::signedRoute('share-file-public', [
+            'fileId' => $id
+        ]);
+
+        return $url;
+    }
 }
+
+
